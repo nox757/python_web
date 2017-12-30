@@ -1,5 +1,5 @@
 [client]
 database = "stepic"
-user = "root"
+user = "box"
 password = ""
 default-character-set = utf8

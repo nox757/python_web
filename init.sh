@@ -6,3 +6,5 @@ sudo /etc/init.d/nginx restart
 sudo ln -sf /home/box/web/etc/hello.py /etc/gunicorn.d/hello.py
 #cd /home/box/web
 sudo gunicorn -c /etc/gunicorn.d/hello.py hello:wsgi_application
+
+
