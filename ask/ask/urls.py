@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^$', index, name="index"),
     url(r'^login/$', test),
     url(r'^signup/$', test),
-    url(r'^question/(?P<id>\d+)$', question, name="question"),
+    url(r'^question/(?P<id>\d+)/$', question, name="question"),
     url(r'^ask/$', test),
     url(r'^popular/$', popular, name="popular"),
     url(r'^new/$', test),

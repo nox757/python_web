@@ -80,7 +80,7 @@ def popular(request, *args, **kwargs):
 
 #url /question/id/
 def question(request, id):
-     try:
+    try:
         question = Question.objects.get(id=id)
     except Question.DoesNotExist:
         raise Http404
@@ -88,6 +88,6 @@ def question(request, id):
     context = {
         "question": question,
     }
-     return render(request, "question.html", context)
+    return render(request, "question.html", context)
 
 
