@@ -16,13 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from qa.views import test
+from qa.views import index, question, popular
 
 urlpatterns = [
-    url(r'^$', test),
+    url(r'^$', index, name="index"),
     url(r'^login/$', test),
     url(r'^signup/$', test),
-    url(r'^question/(?P<id>\d+)$', test),
+    url(r'^question/(?P<id>\d+)$', question, name="question"),
     url(r'^ask/$', test),
-    url(r'^popular/$', test),
+    url(r'^popular/$', popular, name="popular"),
     url(r'^new/$', test),
 ]

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Questions</title>
+</head>
+<body>
+    <h1>Lasted Questions</h1>
+    {% for question in questions %}
+        <p><a href="{{ question.id }}">{{ question }}</a></p>
+    {% endfor %}
+</body>
+</html>
