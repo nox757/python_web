@@ -2,7 +2,7 @@ from django import forms
 from .models import Question, Answer
 
 
-class Askform(forms.Form):
+class AskForm(forms.Form):
     title = forms.CharField(max_length=100)
     text = forms.CharField(widget=forms.Textarea)
 
