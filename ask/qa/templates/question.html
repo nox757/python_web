@@ -13,5 +13,15 @@
     {% endfor %}
     </ul>
     <!--http://10.42.3.92/question/3141592/ -->
+
+    <form method="post" action="{{ question.get_url }}">
+        <fieldset>
+            {% csrf_token %}
+            {{ form.as_p }}
+        </fieldset>
+        <button type="submit">Answer</button>
+    </form>
+
+
 </body>
 </html>

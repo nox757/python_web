@@ -24,6 +24,9 @@ class Question(models.Model):
     def __unicode__(self):
         return self.title
 
+    def get_url(self):
+        return "/question/{}/".format(self.id)
+
 class Answer(models.Model):
     text = models.TextField()
     added_at = models.DateTimeField(auto_now_add=True)

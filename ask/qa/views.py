@@ -3,6 +3,7 @@ from django.views.decorators.http import require_GET
 from .models import Question, Answer
 from django.http import Http404
 from django.core.paginator import Paginator
+from .forms import AskForm, AnswerForm
 
 
 
@@ -79,15 +80,42 @@ def popular(request, *args, **kwargs):
     return render(request, "index.html", context)
 
 #url /question/id/
-def question(request, id):
+def question(request, id, ):
     try:
         question = Question.objects.get(id=id)
     except Question.DoesNotExist:
         raise Http404
     
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            _ = form.save()
+            url = question.get_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AnswerForm(data={ 'question': question.id })
+    
     context = {
         "question": question,
+        "form": form,
     }
     return render(request, "question.html", context)
+
+
+#url /ask/
+def ask(request):
+    if request.method == "POST":
+        form = AskForm(request.POST)
+        if form.is_valid():
+            post = form.save()
+            url = post.get_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AskForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'ask.html', context)
 
 
