@@ -3,7 +3,10 @@ from django.views.decorators.http import require_GET
 from .models import Question, Answer
 from django.http import Http404, HttpResponseRedirect
 from django.core.paginator import Paginator
-from .forms import AskForm, AnswerForm
+from .forms import AskForm, AnswerForm, SignupForm, LoginForm
+
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 
 
@@ -89,6 +92,7 @@ def question(request, id, ):
     if request.method == "POST":
         form = AnswerForm(request.POST)
         if form.is_valid():
+            form._user = request.user
             _ = form.save()
             url = question.get_url()
             return HttpResponseRedirect(url)
@@ -107,6 +111,7 @@ def ask(request):
     if request.method == "POST":
         form = AskForm(request.POST)
         if form.is_valid():
+            form._user = request.user
             post = form.save()
             url = post.get_url()
             return HttpResponseRedirect(url)
@@ -117,5 +122,52 @@ def ask(request):
         'form': form,
     }
     return render(request, 'ask.html', context)
+
+
+def signup(request):
+    if request.method == "POST":
+        
+        form = SignupForm(request.POST)
+
+        if form.is_valid():
+            user.save()
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+
+            return HttpResponseRedirect("/")
+    
+    form = SignupForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'singup.html', context)
+
+def login(request):
+    if request.method == "POST":
+        
+        form = LoginForm(request.POST)
+
+        if form.is_valid():
+            user.save()
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+
+            return HttpResponseRedirect("/")
+    
+    form = LoginForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'login.html', context)
+
+
 
 
