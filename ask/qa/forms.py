@@ -47,7 +47,7 @@ class AnswerForm(forms.Form):
 
 #not released safety password with hash
 class SignupForm(forms.Form):
-    user = forms.CharField(max_length=255)
+    username = forms.CharField(max_length=255)
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
 
@@ -80,7 +80,7 @@ class SignupForm(forms.Form):
         return user
 
 class LoginForm(forms.Form):
-    user = forms.CharField(max_length=255)
+    username = forms.CharField(max_length=255)
     password = forms.CharField(widget=forms.PasswordInput)
 
     def clean_username(self):

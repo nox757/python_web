@@ -130,7 +130,7 @@ def signup(request):
         form = SignupForm(request.POST)
 
         if form.is_valid():
-            user.save()
+            user = form.save()
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             user = authenticate(username=username, password=password)
@@ -144,7 +144,7 @@ def signup(request):
     context = {
         'form': form,
     }
-    return render(request, 'singup.html', context)
+    return render(request, 'signup.html', context)
 
 def login(request):
     if request.method == "POST":
@@ -152,7 +152,7 @@ def login(request):
         form = LoginForm(request.POST)
 
         if form.is_valid():
-            user.save()
+            user = form.save()
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             user = authenticate(username=username, password=password)
