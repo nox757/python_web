@@ -63,7 +63,7 @@ class SignupForm(forms.Form):
         return username
 
     def clean_email(self):
-       email = self.cleaned_data["email"]
+        email = self.cleaned_data["email"]
         if email.strip() == '':
             raise forms.ValidationError("Not be empty", code="error_empty")
         return email

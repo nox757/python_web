@@ -6,8 +6,9 @@ from django.core.paginator import Paginator
 from .forms import AskForm, AnswerForm, SignupForm, LoginForm
 
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 
+from django.core.urlresolvers import reverse
 
 
 
@@ -98,7 +99,6 @@ def question(request, id, ):
             return HttpResponseRedirect(url)
     else:
         form = AnswerForm(data={ 'question': question.id })
-    
     context = {
         "question": question,
         "form": form,
@@ -138,21 +138,20 @@ def signup(request):
                 if user.is_active:
                     login(request, user)
 
-            return HttpResponseRedirect("/")
-    
-    form = SignupForm()
+            return HttpResponseRedirect(reverse("index"))
+    else:
+        form = SignupForm()
     context = {
         'form': form,
     }
     return render(request, 'signup.html', context)
 
-def login(request):
+def login1(request):
     if request.method == "POST":
         
         form = LoginForm(request.POST)
 
         if form.is_valid():
-            user = form.save()
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             user = authenticate(username=username, password=password)
@@ -160,9 +159,10 @@ def login(request):
                 if user.is_active:
                     login(request, user)
 
-            return HttpResponseRedirect("/")
+            return HttpResponseRedirect(reverse("index"))
+    else:
+        form = LoginForm()
     
-    form = LoginForm()
     context = {
         'form': form,
     }
