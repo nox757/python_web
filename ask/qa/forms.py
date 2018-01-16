@@ -1,6 +1,7 @@
 from django import forms
 from .models import Question, Answer
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 
 class AskForm(forms.Form):
