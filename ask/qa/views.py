@@ -149,18 +149,18 @@ def signup(request):
 
 def login1(request):
     if request.method == "POST":
-        print("us_",request.POST["username"])
-        form = LoginForm(request.POST)
         
+        form = LoginForm(request.POST)
+
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
-            print(username, password)
+            
             user = authenticate(username=username, password=password)
             if user is not None:
                 if user.is_active:
                     login(request, user)
-            print(reverse("index"))
+            
             return HttpResponseRedirect(reverse("index"))
     else:
         form = LoginForm()

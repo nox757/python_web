@@ -90,9 +90,9 @@ class LoginForm(forms.Form):
             raise forms.ValidationError("Not be empty", code='error_empty')
         try:
             User.objects.get(username=username)
-            raise forms.ValidationError("Username already exist", code="error_exist")
+            
         except User.DoesNotExist:
-            pass
+            raise forms.ValidationError("Not valid user/login", code="error_exist")
         return username
 
     def clean_password(self):
